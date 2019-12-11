@@ -1,0 +1,28 @@
+
+## 转自：http://www.cnblogs.com/rjzheng/p/8971629.html#3977269
+## 本文利用java自带的socket编程实现了一个简单的rpc调用框架，由两个工程组成分别名为battercake-provider（服务提供者）、battercake-consumer（服务调用者）。
+
+## 设计思路如下：
+1、在battercake-provider中，写一个服务叫BatterCakeService
+
+2、在battercake-provider中，启动RpcProvider，发布该服务
+
+3、在battercake-consumer中，启动测试类RpcTest
+
+4、在battercake-consumer中，利用jdk动态代理，获得BatterCakeService的动态代理类BatterCakeService$Proxy0
+
+5、在battercake-consumer中，动态代理类BatterCakeService$Proxy0，与battercake-provider建立socket连接，battercake-provider针对每一个连接，都会启动一个ServerThread处理请求，代理类则发送服务参数等相关信息
+
+6、在battercake-consumer中，接收battercake-provider的ServerThread请求返回的结果。
+
+上述过程时序图如下所示
+
+<div align=top><img width = "800" height = "600" src="./image/1.png">
+
+## 服务提供者
+本部分的工程为battercake-provider，项目结构图如下图所示
+<div align=top><img width = "400" height = "600" src="./image/2.png">
+
+## 服务消费者
+本部分的工程为battercake-consumer，项目结构图如下图所示
+<div align=top><img width = "400" height = "600" src="./image/3.png">
